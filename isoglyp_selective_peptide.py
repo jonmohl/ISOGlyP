@@ -53,6 +53,7 @@ parser.add_argument('-cs','--core_sequence',type=str)
 
 args = parser.parse_args()
 
+
 if args.fasta:
    fileIn = args.fasta
    seq = 1
@@ -61,6 +62,7 @@ elif args.core_sequence:
    cs = 1
 else:
    ran = 1
+
 
 
 if args.jobId:
@@ -154,7 +156,6 @@ if ran == 1:
 
    #create list of random peptides
    peptides = []
-   #st = time.time()
    for n in range(0,iterations):
       if seed:
          random.seed(int(float(seed.split('_')[0]))+n)
@@ -180,14 +181,11 @@ if ran == 1:
             temp = temp + '-'
       if temp not in peptides:
          peptides.append(temp)
-   #print('Peptide creation time: %0.4fs'%(time.time()-st))
-   #st = time.time()
    for n in peptides:
       psc = isoglyp_core.isoResults.constructResults(n, positions[1:11], pos_transferases, cscore, tscore, sweight, ev_dir)
       pos_scores[n] = psc[0][-1]
       nsc = isoglyp_core.isoResults.constructResults(n, positions[1:11], neg_transferases, cscore, tscore, sweight, ev_dir)
       neg_scores[n] = nsc[0][-1]
-   #print('Prediction time: %0.4fs'%(time.time()-st))
 
 elif cs == 1:
    #Create weights for position specific
@@ -284,20 +282,19 @@ elif seq == 1:
          i+=1
 
 
-#st = time.time()
+
 pep_sorted = sorted(pos_scores, key=pos_scores.__getitem__, reverse=True)
-#print('Peptide sorting time: %0.4fs'%(time.time()-st))
 i = 0
 j = 0
 
 f = open('%s/isoglyp-%s.csv'%(outdir,jobId), 'w')
 if seq == 1:
-   f.write('Peptides generated from %s file\n'%fileIn)
+   f.write('Peptides generated from %s file\n'%fileIn.split('/')[-1])
 if ran == 1:
    f.write('Peptides chosen from %s randomly generated.\n'%iterations)
 if cs == 1:
    f.write('%s randomly generated peptides using the sequence %s as a framwork.\n'%(iterations,''.join(core_sequence)))
-f.write('Enhancement Value Version: %s\n'%ev_dir.split('\')[-1])
+f.write('Enhancement Value Version: %s\n'%ev_dir.split('/')[-1])
 f.write('Seed used in random number generator: %s\n'%seed)
 f.write(',T1,T2,T3,T4,T5,T10,T11,T12,T13,T14,T16\n')
 f.write('Selected-For,%s\n'%(','.join(pos_transferases[:-1])))
