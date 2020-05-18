@@ -29,3 +29,47 @@ def readFastaFile(filename):
       results.append([name,seq])
 
    return results
+   
+def readAccessionFile(filename):
+	import urllib.request, urllib.parse, urllib.error, time
+	f1=open(filename,'r')
+	lines = f1.readlines()
+	f1.close()
+	processed = []
+	results = []
+	redo = []
+	for i in lines:
+		
+		itrim=i.strip()
+		if itrim == "" or itrim in processed:
+			continue
+		else:
+			print(itrim)
+			try:
+				localfile=urllib.request.urlopen('http://www.uniprot.org/uniprot/'+itrim+'.fasta')
+				temp=localfile.readlines()
+				res=''
+				for i in range(1,len(temp)):
+					res=res+temp[i].decode("utf-8").strip()
+				processed.append(itrim)
+				results.append([">"+itrim,res])
+			except:
+				print('Sequence: %s could not be retrieved'%itrim)
+				redo.append(itrim)
+		if len(processed)%10 == 0:
+			time.sleep(5)
+	for itrim in redo:
+		print(itrim)
+		if itrim == "" or itrim in processed:
+			try:
+				localfile=urllib.request.urlopen('http://www.uniprot.org/uniprot/'+itrim+'.fasta')
+				temp=localfile.readlines()
+				res=''
+				for i in range(1,len(temp)):
+					res=res+temp[i].decode("utf-8").strip()
+				processed.append(itrim)
+				results.append([">"+itrim,res])
+			except:
+				print('Sequence: %s could not be retrieved again'%itrim)
+			time.sleep(5)
+	return results

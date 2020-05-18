@@ -33,7 +33,7 @@ def constructResults(seq, pos, transferases, cscore, tscore, sweight, ev_dir):
       max = -100
 
       #Determine if the site of interest has a upstream or downstream prior potential glycosylation effect
-      start = m - 15
+      start = m - 17
       if start < 0:
          start = 0
       end = m - 5
@@ -46,7 +46,7 @@ def constructResults(seq, pos, transferases, cscore, tscore, sweight, ev_dir):
          start = 0
       cl_neg_ind = [n.start() for n in re.finditer('[ST]',seq[start:m])]
 
-      end = m + 15
+      end = m + 17
       if end > len(seq):
          end = len(seq)-1
       start = m+5

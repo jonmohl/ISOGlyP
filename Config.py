@@ -20,8 +20,8 @@ PIPELINE_ROOT=PROJECT_ROOT+'/pipeline'
 
 evt_root = os.environ.get('ISO_EV_DIR',None)
 if evt_root is None:
-    EVT_ROOT='../ISOGlyP-EV_Tables/20180321'
+    EVT_ROOT='../ISOGlyP-EV_Tables/20200516'
 else:
     EVT_ROOT = evt_root
 
-CURRENT_EV = '20180321'
+CURRENT_EV = '20200516'

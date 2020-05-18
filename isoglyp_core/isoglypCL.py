@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 import os
 import re
@@ -19,17 +19,26 @@ import isoEVPtables
 import isoReadWrite
 import isoResults
 
-os.chdir(abspath)
+#os.chdir(abspath)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--fasta', type=str)
+parser.add_argument('-a', '--accessions', type=str)
 parser.add_argument('-p', '--parameters', type=str)
 parser.add_argument('-j', '--jobId', type=str)
 parser.add_argument('-c', '--cutoff', type=str)
 
 args = parser.parse_args()
 
-fileIn = args.fasta
+if args.fasta:
+   fileIn = args.fasta
+   sequences = isoReadWrite.readFastaFile('%s'%(fileIn))
+elif args.accessions:
+   accessions = args.accessions
+   sequences = isoReadWrite.readAccessionFile(accessions)
+else:
+   print('Error: Need with file containing fasta sequences or uniprot accession numbers.')
+   
 parIn = args.parameters
 if args.jobId:
    jobId = args.jobId
@@ -41,16 +50,17 @@ if args.cutoff:
 else:
    cutoff = 1
 
-sequences = isoReadWrite.readFastaFile('%s'%(fileIn))
 
-para = open('%s'%(parIn), 'r')
+
+para = open('%s/%s'%(workdir,parIn), 'r')
 parLines = para.readlines()
 para.close()
 
 cscore = 1
 tscore = 1
 
-out_path = '/'.join(parIn.split('/')[0:-1])
+#out_path = '/'.join(parIn.split('/')[0:-1])
+out_path = workdir
 
 for line in parLines:
    if re.search('^pos',line):
