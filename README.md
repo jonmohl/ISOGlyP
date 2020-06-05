@@ -1,6 +1,9 @@
 # ISOGlyP
 Isoform Specific mucin-type o-glycosylation prediction
 
+# Parameter File
+Modify the parameter file to update THR/SER ratios, transferases desired and positions
+
 # Usage
 isoglypCL.py [-h] [-f FASTA] [-a ACCESSIONS] [-p PARAMETERS] [-j JOBID]
                     [-c CUTOFF]
@@ -12,3 +15,7 @@ optional arguments:
   -p PARAMETERS, --parameters PARAMETERS
   -j JOBID, --jobId JOBID
   -c CUTOFF, --cutoff CUTOFF
+
+
+#Cite the program
+Coming soon!
