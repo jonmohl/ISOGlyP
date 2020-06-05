@@ -17,5 +17,5 @@ optional arguments:
   -c CUTOFF, --cutoff CUTOFF
 
 
-#Cite the program
+# Cite ISOGlyP
 Coming soon!
