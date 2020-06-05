@@ -1,7 +1,7 @@
 # ISOGlyP
 Isoform Specific mucin-type o-glycosylation prediction
 
-#Usage
+# Usage
 isoglypCL.py [-h] [-f FASTA] [-a ACCESSIONS] [-p PARAMETERS] [-j JOBID]
                     [-c CUTOFF]
 
