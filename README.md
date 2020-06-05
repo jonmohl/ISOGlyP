@@ -8,7 +8,7 @@ Modify the parameter file to update THR/SER ratios, transferases desired and pos
 Coming soon!
 
 # Usage
-'''
+```
 isoglypCL.py [-h] [-f FASTA] [-a ACCESSIONS] [-p PARAMETERS] [-j JOBID]
                     [-c CUTOFF] [-l WRITE_LOG]
 
@@ -20,4 +20,4 @@ optional arguments:
   -j JOBID, --jobId JOBID
   -c CUTOFF, --cutoff CUTOFF
   -l WRITE_LOG, --write_log WRITE_LOG
-'''
+```
