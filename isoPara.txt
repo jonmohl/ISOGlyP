@@ -1,0 +1,23 @@
+#This is is used to select parameters in the isoglyp prediction process.
+#This region used for notes:
+#
+#
+#
+#
+#
+#
+#Select Transferases:  Use 1 for use and 0 to ignore, keep spacing as is:
+#  T1, T2, T3, T4, T5, T10, T11, T12, T13, T14, T16, TMax
+trans=1,1,1,1,1,1,1,1,1,1,1,1
+
+
+
+#Select Positions: Use 1 for position and 0 to ignore
+#  -5, -4, -3, -2, -1, 1, 2, 3, 4, 5
+pos=0,0,1,1,1,1,1,1,0,0
+
+
+#Enhancement value tables root filename:
+evd=~/github/ISOGlyP-EV_Tables/20200516/20200516
+
+ratio=14.9,6.1,18.1,2.2,6.9,2.7,6.6,1.94,11.9,5.88,5.65
