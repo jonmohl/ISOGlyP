@@ -27,6 +27,7 @@ parser.add_argument('-a', '--accessions', type=str)
 parser.add_argument('-p', '--parameters', type=str)
 parser.add_argument('-j', '--jobId', type=str)
 parser.add_argument('-c', '--cutoff', type=str)
+parser.add_argument('-l', '--write_log')
 
 args = parser.parse_args()
 
@@ -43,14 +44,17 @@ parIn = args.parameters
 if args.jobId:
    jobId = args.jobId
 else:
-   jobId = 'null'
+   jobId = 'predictions'
 
 if args.cutoff:
    cutoff = args.cutoff
 else:
    cutoff = 1
 
-
+if args.write_log:
+   write_log = True
+else:
+   write_log = False
 
 para = open('%s/%s'%(workdir,parIn), 'r')
 parLines = para.readlines()
@@ -100,13 +104,14 @@ for n in sequences:
    for m in scores:
       resultsCSV = resultsCSV + n[0].replace(',','') + ',' + m[1][5] + ',' + str(m[0]+1) + ',' + ','.join(str(m[x]) for x in range(1,len(m))) + '\n'
    count += 1
-   if count%20 == 0:
+   if count%20 == 0 and write_log:
       log = open('%s/%s.log'%(out_path,('%s'%jobId).split('.')[0]), 'a')
       log.write('Processed %s of %s sequences...\n'%(count,len(sequences)))
       log.close()
 
 f = open('%s/isoglyp-%s.csv'%(out_path, jobId), 'w')
 f.write(resultsCSV)
-log = open('%s/%s.log'%(out_path,('%s'%jobId).split('.')[0]), 'a')
-log.write('Completed')
-log.close()
+if write_log:
+   log = open('%s/%s.log'%(out_path,('%s'%jobId).split('.')[0]), 'a')
+   log.write('Completed')
+   log.close()
